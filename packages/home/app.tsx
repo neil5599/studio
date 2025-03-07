@@ -13,7 +13,7 @@ import {
 import { TabsView } from "eez-studio-ui/tabs";
 import { makeLazyComponent } from "eez-studio-ui/lazy-component";
 
-import { HomeTab, IHomeTab, InstrumentTab, tabs } from "home/tabs-store";
+import { HomeTab, IHomeTab, InstrumentTab, tabs } from "home/tabs-store";  // 
 import "home/home-tab";
 
 import type { InstrumentObject } from "instrument/instrument-object";
@@ -52,8 +52,8 @@ const MainContent = observer(
                         {((tabs.activeTab instanceof HomeTab &&
                             homeTabStore.activeTab == "instruments") ||
                             tabs.activeTab instanceof InstrumentTab) && (
-                            <SessionInfoContainer />
-                        )}
+                                <SessionInfoContainer />
+                            )}
                     </Header>
                     <Body>
                         <Tabs />

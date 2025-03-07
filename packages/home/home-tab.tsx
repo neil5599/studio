@@ -11,12 +11,12 @@ import {
     wizardModelTemplates,
     wizardModelExamples
 } from "project-editor/project/ui/Wizard";
-import {
-    ExtensionsManager,
-    extensionsManagerStore
-} from "./extensions-manager/extensions-manager";
+// import {
+//     ExtensionsManager,
+//     extensionsManagerStore
+// } from "./extensions-manager/extensions-manager";
 import { Projects } from "home/open-projects";
-import { Instruments, defaultInstrumentsStore } from "home/instruments";
+// import { Instruments, defaultInstrumentsStore } from "home/instruments";
 import { HOME_TAB_OPEN_ICON } from "project-editor/ui-components/icons";
 import { instrumentDatabases } from "eez-studio-shared/db";
 
@@ -90,11 +90,11 @@ const HOME_TAB_EXAMPLES_ICON = (
     </svg>
 );
 
-const HOME_TAB_INSTRUMENTS_ICON = (
-    <svg viewBox="-50 -50 1124 1124" fill="currentcolor">
-        <path d="M128 896h896v128H0V0h128v896zm18.4-450.2 236.6-.2L443 205h81l74.4 318.6L662.6 314l81.4-.6L796.6 448l226.8-2.4.4 84H746.4l-41-104.2-60 289h-75l-89.6-333.2-32.6 148.4-301.8.2v-84z" />
-    </svg>
-);
+// const HOME_TAB_INSTRUMENTS_ICON = (
+//     <svg viewBox="-50 -50 1124 1124" fill="currentcolor">
+//         <path d="M128 896h896v128H0V0h128v896zm18.4-450.2 236.6-.2L443 205h81l74.4 318.6L662.6 314l81.4-.6L796.6 448l226.8-2.4.4 84H746.4l-41-104.2-60 289h-75l-89.6-333.2-32.6 148.4-301.8.2v-84z" />
+//     </svg>
+// );
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -170,7 +170,7 @@ export const Home = observer(
                             >
                                 <Icon icon="material:apps" size={32} /> Run
                             </div>*/}
-                            <div
+                            {/* <div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
                                     {
@@ -189,8 +189,8 @@ export const Home = observer(
                                     size={32}
                                 />{" "}
                                 Instruments
-                            </div>
-                            <div
+                            </div> */}
+                            {/* <div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
                                     {
@@ -213,7 +213,7 @@ export const Home = observer(
                                     }
                                 />
                                 Extensions
-                            </div>
+                            </div> */}
                             <div
                                 className={classNames(
                                     "EezStudio_HomeTab_NavigationItem",
@@ -272,15 +272,15 @@ export const Home = observer(
                             <div style={{ margin: "auto" }}></div>
                         )
                         */}
-                        {homeTabStore.activeTab == "instruments" && (
+                        {/* {homeTabStore.activeTab == "instruments" && (
                             <Instruments
                                 instrumentsStore={defaultInstrumentsStore}
                                 size="M"
                             />
-                        )}
-                        {homeTabStore.activeTab == "extensions" && (
+                        )} */}
+                        {/* {homeTabStore.activeTab == "extensions" && (
                             <ExtensionsManager />
-                        )}
+                        )} */}
                         {homeTabStore.activeTab == "settings" && <Settings />}
                     </div>
                 </div>

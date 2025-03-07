@@ -148,7 +148,7 @@ const AboutBox = observer(
                                         event.preventDefault();
                                         openLink(
                                             STUDIO_SPECIFIC_RELEASE_URL +
-                                                this.latestVersion
+                                            this.latestVersion
                                         );
                                     }}
                                 >
@@ -195,7 +195,7 @@ const AboutBox = observer(
                                     event.preventDefault();
                                     openLink(
                                         STUDIO_SPECIFIC_RELEASE_URL +
-                                            this.packageJSON.version
+                                        this.packageJSON.version
                                     );
                                 }}
                             >
@@ -210,13 +210,13 @@ const AboutBox = observer(
 
                         {this.versionInfo}
 
-                        <button
+                        {/* <button
                             className="EezStudio_CheckForUpdate btn btn-sm btn-secondary"
                             onClick={this.checkForUpdates}
                             disabled={this.checkingForUpdates}
                         >
                             Check for Updates
-                        </button>
+                        </button> */}
 
                         <div className="EezStudio_Links">
                             <a

@@ -11,7 +11,7 @@ import {
 import { autorun, runInAction } from "mobx";
 
 import {
-    importInstrumentDefinitionFile,
+    // importInstrumentDefinitionFile,
     openHomeWindow
 } from "main/home-window";
 import {
@@ -112,9 +112,9 @@ function createNewProject() {
     BrowserWindow.getFocusedWindow()!.webContents.send("new-project");
 }
 
-function addInstrument() {
-    BrowserWindow.getFocusedWindow()!.webContents.send("add-instrument");
-}
+// function addInstrument() {
+//     BrowserWindow.getFocusedWindow()!.webContents.send("add-instrument");
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -181,13 +181,13 @@ function buildFileMenu(win: IWindow | undefined) {
                 createNewProject();
             }
         },
-        {
-            label: "Add Instrument...",
-            accelerator: "CmdOrCtrl+Alt+N",
-            click: function (item, focusedWindow) {
-                addInstrument();
-            }
-        },
+        // {
+        //     label: "Add Instrument...",
+        //     accelerator: "CmdOrCtrl+Alt+N",
+        //     click: function (item, focusedWindow) {
+        //         addInstrument();
+        //     }
+        // },
         {
             label: "New Window",
             accelerator: "CmdOrCtrl+Shift+N",
@@ -299,30 +299,30 @@ function buildFileMenu(win: IWindow | undefined) {
         }
     }
 
-    fileMenuSubmenu.push(
-        {
-            type: "separator"
-        },
-        {
-            label: "Import Instrument Definition...",
-            click: async function (item: any, focusedWindow: any) {
-                const result = await dialog.showOpenDialog(focusedWindow, {
-                    properties: ["openFile"],
-                    filters: [
-                        {
-                            name: "Instrument Definition Files",
-                            extensions: ["zip"]
-                        },
-                        { name: "All Files", extensions: ["*"] }
-                    ]
-                });
-                const filePaths = result.filePaths;
-                if (filePaths && filePaths[0]) {
-                    importInstrumentDefinitionFile(filePaths[0]);
-                }
-            }
-        }
-    );
+    // fileMenuSubmenu.push(
+    //     {
+    //         type: "separator"
+    //     },
+    //     {
+    //         label: "Import Instrument Definition...",
+    //         click: async function (item: any, focusedWindow: any) {
+    //             const result = await dialog.showOpenDialog(focusedWindow, {
+    //                 properties: ["openFile"],
+    //                 filters: [
+    //                     {
+    //                         name: "Instrument Definition Files",
+    //                         extensions: ["zip"]
+    //                     },
+    //                     { name: "All Files", extensions: ["*"] }
+    //                 ]
+    //             });
+    //             const filePaths = result.filePaths;
+    //             if (filePaths && filePaths[0]) {
+    //                 importInstrumentDefinitionFile(filePaths[0]);
+    //             }
+    //         }
+    //     }
+    // );
 
     if (win?.activeTabType === "project") {
         fileMenuSubmenu.push(
@@ -372,45 +372,46 @@ function buildFileMenu(win: IWindow | undefined) {
             }
         );
 
-        if (win.state.hasExtensionDefinitions) {
-            fileMenuSubmenu.push(
-                {
-                    label: "Build Extensions",
-                    click: function (item: any, focusedWindow: any) {
-                        if (focusedWindow) {
-                            focusedWindow.webContents.send("build-extensions");
-                        }
-                    }
-                },
-                {
-                    label: "Build and Install Extensions",
-                    click: function (item: any, focusedWindow: any) {
-                        if (focusedWindow) {
-                            focusedWindow.webContents.send(
-                                "build-and-install-extensions"
-                            );
-                        }
-                    }
-                }
-            );
-        }
-    } else if (win?.activeTabType === "instrument") {
-        fileMenuSubmenu.push(
-            {
-                type: "separator"
-            },
-            {
-                id: "save",
-                label: "Save",
-                accelerator: "CmdOrCtrl+S",
-                click: function (item: any, focusedWindow: any) {
-                    if (focusedWindow) {
-                        focusedWindow.webContents.send("save");
-                    }
-                }
-            }
-        );
+        // if (win.state.hasExtensionDefinitions) {
+        //     fileMenuSubmenu.push(
+        //         {
+        //             label: "Build Extensions",
+        //             click: function (item: any, focusedWindow: any) {
+        //                 if (focusedWindow) {
+        //                     focusedWindow.webContents.send("build-extensions");
+        //                 }
+        //             }
+        //         },
+        //         {
+        //             label: "Build and Install Extensions",
+        //             click: function (item: any, focusedWindow: any) {
+        //                 if (focusedWindow) {
+        //                     focusedWindow.webContents.send(
+        //                         "build-and-install-extensions"
+        //                     );
+        //                 }
+        //             }
+        //         }
+        //     );
+        // }
     }
+    // else if (win?.activeTabType === "instrument") {
+    //     fileMenuSubmenu.push(
+    //         {
+    //             type: "separator"
+    //         },
+    //         {
+    //             id: "save",
+    //             label: "Save",
+    //             accelerator: "CmdOrCtrl+S",
+    //             click: function (item: any, focusedWindow: any) {
+    //                 if (focusedWindow) {
+    //                     focusedWindow.webContents.send("save");
+    //                 }
+    //             }
+    //         }
+    //     );
+    // }
 
     let count = BrowserWindow.getAllWindows().filter(b => {
         return b.isVisible();
@@ -640,14 +641,14 @@ function buildViewMenu(win: IWindow | undefined) {
                 }
             }
         },
-        {
-            label: "Extensions",
-            click: function (item) {
-                if (win) {
-                    win.browserWindow.webContents.send("openTab", "extensions");
-                }
-            }
-        },
+        // {
+        //     label: "Extensions",
+        //     click: function (item) {
+        //         if (win) {
+        //             win.browserWindow.webContents.send("openTab", "extensions");
+        //         }
+        //     }
+        // },
         {
             label: "Settings",
             click: function (item) {

@@ -36,13 +36,13 @@ import { Icon } from "eez-studio-ui/icon";
 import { openProject } from "home/tabs-store";
 
 import {
-    DASHBOARD_PROJECT_ICON,
-    EEZ_GUI_PROJECT_ICON,
+    // DASHBOARD_PROJECT_ICON,
+    // EEZ_GUI_PROJECT_ICON,
     LVGL_PROJECT_ICON,
     LVGL_WITH_FLOW_PROJECT_ICON,
     MICROPYTHON_ICON,
     APPLET_ICON,
-    IEXT_PROJECT_ICON
+    // IEXT_PROJECT_ICON
 } from "project-editor/ui-components/icons";
 import {
     EEZ_PROJECT_EXAMPLES_REPOSITORY,
@@ -117,9 +117,9 @@ interface IProjectType {
     language?: string;
     resourceFiles?: string[];
     projectFileUrl?:
-        | string
-        | { "8.3": string; "9.0": string }
-        | { SCPI: string; PROPRIETARY: string };
+    | string
+    | { "8.3": string; "9.0": string }
+    | { SCPI: string; PROPRIETARY: string };
 
     author?: string;
     authorLink?: string;
@@ -430,7 +430,7 @@ class WizardModel {
                     runInAction(() => {
                         templateProject._projectType =
                             PROJECT_TYPE_NAMES[
-                                general.projectType as ProjectType
+                            general.projectType as ProjectType
                             ];
                         templateProject._description = general.description;
                         templateProject._keywords = general.keywords;
@@ -701,25 +701,25 @@ class WizardModel {
 
     get standardProjectTypes(): IProjectType[] {
         return [
-            {
-                id: "dashboard",
-                projectType: PROJECT_TYPE_NAMES[ProjectType.DASHBOARD],
-                image: DASHBOARD_PROJECT_ICON(128),
-                projectName: "Dashboard",
-                description:
-                    "Start your new Dashboard project development here.",
-                projectFileUrl:
-                    "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/dashboard.eez-project"
-            },
-            {
-                id: "firmware",
-                projectType: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE],
-                image: EEZ_GUI_PROJECT_ICON(128),
-                projectName: "EEZ-GUI",
-                description: "Start your new EEZ-GUI project development here.",
-                projectFileUrl:
-                    "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/firmware.eez-project"
-            },
+            // {
+            //     id: "dashboard",
+            //     projectType: PROJECT_TYPE_NAMES[ProjectType.DASHBOARD],
+            //     image: DASHBOARD_PROJECT_ICON(128),
+            //     projectName: "Dashboard",
+            //     description:
+            //         "Start your new Dashboard project development here.",
+            //     projectFileUrl:
+            //         "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/dashboard.eez-project"
+            // },
+            // {
+            //     id: "firmware",
+            //     projectType: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE],
+            //     image: EEZ_GUI_PROJECT_ICON(128),
+            //     projectName: "EEZ-GUI",
+            //     description: "Start your new EEZ-GUI project development here.",
+            //     projectFileUrl:
+            //         "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/firmware.eez-project"
+            // },
             {
                 id: "LVGL",
                 projectType: PROJECT_TYPE_NAMES[ProjectType.LVGL],
@@ -743,18 +743,18 @@ class WizardModel {
                     "9.0": "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/v0.19.0/LVGL%20with%20EEZ%20Flow-9.0.eez-project"
                 }
             },
-            {
-                id: "IEXT",
-                projectType: PROJECT_TYPE_NAMES[ProjectType.IEXT],
-                image: IEXT_PROJECT_ICON(128),
-                projectName: "IEXT",
-                description: "Start your new IEXT project development here.",
-                projectFileUrl: {
-                    SCPI: "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/IEXT.eez-project",
-                    PROPRIETARY:
-                        "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/IEXT - PROPRIETARY.eez-project"
-                }
-            }
+            // {
+            //     id: "IEXT",
+            //     projectType: PROJECT_TYPE_NAMES[ProjectType.IEXT],
+            //     image: IEXT_PROJECT_ICON(128),
+            //     projectName: "IEXT",
+            //     description: "Start your new IEXT project development here.",
+            //     projectFileUrl: {
+            //         SCPI: "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/IEXT.eez-project",
+            //         PROPRIETARY:
+            //             "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/IEXT - PROPRIETARY.eez-project"
+            //     }
+            // }
         ].filter(projectType => this.searchFilter(projectType));
     }
 
@@ -794,8 +794,8 @@ class WizardModel {
                     "eez-flow-template-"
                 )
                     ? templateProject.name.substring(
-                          "eez-flow-template-".length
-                      )
+                        "eez-flow-template-".length
+                    )
                     : templateProject.name,
                 description: templateProject._description,
                 keywords: templateProject._keywords,
@@ -809,9 +809,9 @@ class WizardModel {
 
     get allTemplateProjectTypes(): IProjectType[] {
         return [
-            ...this.standardProjectTypes,
-            ...this.bb3ProjectTypes,
-            ...this.templateProjectTypes
+            ...this.standardProjectTypes//,
+            // ...this.bb3ProjectTypes,
+            // ...this.templateProjectTypes
         ];
     }
 
@@ -836,56 +836,56 @@ class WizardModel {
                 });
             }
 
-            if (this.standardProjectTypes.length > 0) {
-                children.push({
-                    id: "_standard",
-                    label: (
-                        <Count
-                            label="Builtin Templates"
-                            count={this.standardProjectTypes.length}
-                            attention={false}
-                        ></Count>
-                    ),
-                    children: [],
-                    selected: this.folder == "_standard",
-                    expanded: true,
-                    data: undefined
-                });
-            }
+            // if (this.standardProjectTypes.length > 0) {
+            //     children.push({
+            //         id: "_standard",
+            //         label: (
+            //             <Count
+            //                 label="Builtin Templates"
+            //                 count={this.standardProjectTypes.length}
+            //                 attention={false}
+            //             ></Count>
+            //         ),
+            //         children: [],
+            //         selected: this.folder == "_standard",
+            //         expanded: true,
+            //         data: undefined
+            //     });
+            // }
 
-            if (this.bb3ProjectTypes.length > 0) {
-                children.push({
-                    id: "_bb3",
-                    label: (
-                        <Count
-                            label="BB3 Script Templates"
-                            count={this.bb3ProjectTypes.length}
-                            attention={false}
-                        ></Count>
-                    ),
-                    children: [],
-                    selected: this.folder == "_bb3",
-                    expanded: true,
-                    data: undefined
-                });
-            }
+            // if (this.bb3ProjectTypes.length > 0) {
+            //     children.push({
+            //         id: "_bb3",
+            //         label: (
+            //             <Count
+            //                 label="BB3 Script Templates"
+            //                 count={this.bb3ProjectTypes.length}
+            //                 attention={false}
+            //             ></Count>
+            //         ),
+            //         children: [],
+            //         selected: this.folder == "_bb3",
+            //         expanded: true,
+            //         data: undefined
+            //     });
+            // }
 
-            if (this.templateProjectTypes.length > 0) {
-                children.push({
-                    id: "_templates",
-                    label: (
-                        <Count
-                            label="From envox.eu/gitea"
-                            count={this.templateProjectTypes.length}
-                            attention={false}
-                        ></Count>
-                    ),
-                    children: [],
-                    selected: this.folder == "_templates",
-                    expanded: true,
-                    data: undefined
-                });
-            }
+            // if (this.templateProjectTypes.length > 0) {
+            //     children.push({
+            //         id: "_templates",
+            //         label: (
+            //             <Count
+            //                 label="From envox.eu/gitea"
+            //                 count={this.templateProjectTypes.length}
+            //                 attention={false}
+            //             ></Count>
+            //         ),
+            //         children: [],
+            //         selected: this.folder == "_templates",
+            //         expanded: true,
+            //         data: undefined
+            //     });
+            // }
 
             // children.push({
             //     id: "_advanced",
@@ -1169,8 +1169,8 @@ class WizardModel {
                     try {
                         await fs.promises.writeFile(
                             this.projectFolderPath +
-                                path.sep +
-                                "modular-psu-firmware.eez-project",
+                            path.sep +
+                            "modular-psu-firmware.eez-project",
                             JSON.stringify(req.response, undefined, 2),
                             "utf8"
                         );
@@ -1293,8 +1293,8 @@ class WizardModel {
                                 !this.isSelectedExampleWithGitRepository
                                 ? {}
                                 : {
-                                      "--recurse-submodules": null
-                                  }
+                                    "--recurse-submodules": null
+                                }
                         );
                     } catch (err) {
                         await fs.promises.rm(projectDirPath, {
@@ -1363,8 +1363,8 @@ class WizardModel {
                     const manifestJson = this.isSelectedExampleWithGitRepository
                         ? {}
                         : await readJsObjectFromFile(
-                              projectDirPath + "/template/manifest.json"
-                          );
+                            projectDirPath + "/template/manifest.json"
+                        );
 
                     if (
                         this.gitInit &&
@@ -1390,13 +1390,11 @@ class WizardModel {
                                 const NUM_RETRIES = 3;
 
                                 for (let i = 0; i <= NUM_RETRIES; i++) {
-                                    const message = `Adding submodule ${
-                                        submodule.name
-                                    } ${
-                                        i > 0
+                                    const message = `Adding submodule ${submodule.name
+                                        } ${i > 0
                                             ? `retry ${i} of ${NUM_RETRIES}`
                                             : ""
-                                    } ...`;
+                                        } ...`;
 
                                     runInAction(
                                         () => (this.progress = message)
@@ -1463,8 +1461,8 @@ class WizardModel {
 
                             await fs.promises.rm(
                                 projectDirPath +
-                                    "/" +
-                                    manifestJson["eez-framework-location"],
+                                "/" +
+                                manifestJson["eez-framework-location"],
                                 {
                                     recursive: true,
                                     force: true
@@ -1704,9 +1702,8 @@ class WizardModel {
                 return true;
             } catch (err) {
                 console.error(err);
-                this.projectCreationError = `Failed to create a new project${
-                    this.progress ? ' at: "' + this.progress + '"' : ""
-                }!`;
+                this.projectCreationError = `Failed to create a new project${this.progress ? ' at: "' + this.progress + '"' : ""
+                    }!`;
             } finally {
                 runInAction(() => {
                     this.progress = "";
@@ -1860,7 +1857,7 @@ const ProjectTypesList = observer(
 
                 let pageSize = Math.floor(
                     $(event.target).parent().height()! /
-                        $($rows[0]).outerHeight()!
+                    $($rows[0]).outerHeight()!
                 );
 
                 if (event.keyCode == 38) {
@@ -1996,7 +1993,7 @@ const ProjectTypeComponent = observer(
                             <h6>{projectType.projectName}</h6>
                             {projectType.repository &&
                                 projectType.repository !=
-                                    EEZ_PROJECT_EXAMPLES_REPOSITORY && (
+                                EEZ_PROJECT_EXAMPLES_REPOSITORY && (
                                     <a
                                         href="#"
                                         onClick={event => {
@@ -2053,17 +2050,17 @@ const ProjectTypeComponent = observer(
                                 Language: projectType.language,
                                 Resolution:
                                     projectType.displayWidth != undefined &&
-                                    projectType.displayHeight != undefined
+                                        projectType.displayHeight != undefined
                                         ? `${projectType.displayWidth} x ${projectType.displayHeight}`
                                         : undefined,
                                 "LVGL version":
                                     projectType.projectType ==
-                                    PROJECT_TYPE_NAMES[ProjectType.LVGL]
+                                        PROJECT_TYPE_NAMES[ProjectType.LVGL]
                                         ? this.props.wizardModel.section ==
-                                              "templates" &&
-                                          (projectType.id == "LVGL" ||
-                                              projectType.id ==
-                                                  "LVGL with EEZ Flow")
+                                            "templates" &&
+                                            (projectType.id == "LVGL" ||
+                                                projectType.id ==
+                                                "LVGL with EEZ Flow")
                                             ? "8.x | 9.x"
                                             : "8.x"
                                         : undefined
@@ -2183,7 +2180,7 @@ const ProjectProperties = observer(
                             {wizardModel.section == "templates" &&
                                 (wizardModel.type == "LVGL" ||
                                     wizardModel.type ==
-                                        "LVGL with EEZ Flow") && (
+                                    "LVGL with EEZ Flow") && (
                                     <div className="mb-3">
                                         <label
                                             className="form-label"
@@ -2196,11 +2193,11 @@ const ProjectProperties = observer(
                                             className="form-select"
                                             onChange={action(
                                                 event =>
-                                                    (wizardModel.lvglVersion =
-                                                        event.target.value ==
+                                                (wizardModel.lvglVersion =
+                                                    event.target.value ==
                                                         "9.0"
-                                                            ? "9.0"
-                                                            : "8.3")
+                                                        ? "9.0"
+                                                        : "8.3")
                                             )}
                                             value={wizardModel.lvglVersion}
                                         >
@@ -2224,11 +2221,11 @@ const ProjectProperties = observer(
                                             className="form-select"
                                             onChange={action(
                                                 event =>
-                                                    (wizardModel.commandsProtocol =
-                                                        event.target.value ==
+                                                (wizardModel.commandsProtocol =
+                                                    event.target.value ==
                                                         "PROPRIETARY"
-                                                            ? "PROPRIETARY"
-                                                            : "SCPI")
+                                                        ? "PROPRIETARY"
+                                                        : "SCPI")
                                             )}
                                             value={wizardModel.commandsProtocol}
                                         >
@@ -2266,26 +2263,26 @@ const ProjectProperties = observer(
                                 (wizardModel.isSelectedExampleWithGitRepository &&
                                     wizardModel.gitClone)
                             ) && (
-                                <div className="mb-3 form-check">
-                                    <input
-                                        id="new-project-wizard-create-directory-checkbox"
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        checked={wizardModel.createDirectory}
-                                        onChange={action(
-                                            event =>
+                                    <div className="mb-3 form-check">
+                                        <input
+                                            id="new-project-wizard-create-directory-checkbox"
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={wizardModel.createDirectory}
+                                            onChange={action(
+                                                event =>
                                                 (wizardModel.createDirectory =
                                                     event.target.checked)
-                                        )}
-                                    />
-                                    <label
-                                        className="form-check-label"
-                                        htmlFor="new-project-wizard-create-directory-checkbox"
-                                    >
-                                        Create directory
-                                    </label>
-                                </div>
-                            )}
+                                            )}
+                                        />
+                                        <label
+                                            className="form-check-label"
+                                            htmlFor="new-project-wizard-create-directory-checkbox"
+                                        >
+                                            Create directory
+                                        </label>
+                                    </div>
+                                )}
 
                             <div className="mb-3">
                                 <label
@@ -2293,8 +2290,8 @@ const ProjectProperties = observer(
                                     className="form-label"
                                 >
                                     {wizardModel.selectedTemplateProject ||
-                                    (wizardModel.isSelectedExampleWithGitRepository &&
-                                        wizardModel.gitClone)
+                                        (wizardModel.isSelectedExampleWithGitRepository &&
+                                            wizardModel.gitClone)
                                         ? "Project folder path"
                                         : "Project file path"}
                                 </label>
@@ -2303,12 +2300,12 @@ const ProjectProperties = observer(
                                     className="form-control EezStudio_NewProjectWizard_StaticField"
                                 >
                                     {(wizardModel.selectedTemplateProject ||
-                                    (wizardModel.isSelectedExampleWithGitRepository &&
-                                        wizardModel.gitClone)
+                                        (wizardModel.isSelectedExampleWithGitRepository &&
+                                            wizardModel.gitClone)
                                         ? wizardModel.projectFolderPath
                                         : wizardModel.projectFilePath) || (
-                                        <span>&nbsp;</span>
-                                    )}
+                                            <span>&nbsp;</span>
+                                        )}
                                 </div>
                             </div>
 
@@ -2321,8 +2318,8 @@ const ProjectProperties = observer(
                                         checked={wizardModel.gitClone}
                                         onChange={action(
                                             event =>
-                                                (wizardModel.gitClone =
-                                                    event.target.checked)
+                                            (wizardModel.gitClone =
+                                                event.target.checked)
                                         )}
                                     />
                                     <label
@@ -2348,8 +2345,8 @@ const ProjectProperties = observer(
                                         checked={wizardModel.gitInit}
                                         onChange={action(
                                             event =>
-                                                (wizardModel.gitInit =
-                                                    event.target.checked)
+                                            (wizardModel.gitInit =
+                                                event.target.checked)
                                         )}
                                     />
                                     <label
@@ -2383,11 +2380,11 @@ const ProjectProperties = observer(
                                                     }
                                                     onChange={action(
                                                         event =>
-                                                            (wizardModel.bb3ProjectOption =
-                                                                event.target
-                                                                    .checked
-                                                                    ? "download"
-                                                                    : "local")
+                                                        (wizardModel.bb3ProjectOption =
+                                                            event.target
+                                                                .checked
+                                                                ? "download"
+                                                                : "local")
                                                     )}
                                                 />
 
@@ -2422,11 +2419,11 @@ const ProjectProperties = observer(
                                                     }
                                                     onChange={action(
                                                         event =>
-                                                            (wizardModel.bb3ProjectOption =
-                                                                event.target
-                                                                    .checked
-                                                                    ? "local"
-                                                                    : "download")
+                                                        (wizardModel.bb3ProjectOption =
+                                                            event.target
+                                                                .checked
+                                                                ? "local"
+                                                                : "download")
                                                     )}
                                                 />
 
@@ -2441,37 +2438,37 @@ const ProjectProperties = observer(
 
                                         {wizardModel.bb3ProjectOption ==
                                             "local" && (
-                                            <div className="mb-3">
-                                                <label
-                                                    htmlFor="new-project-wizard-bb3-project-file-path-input"
-                                                    className="form-label"
-                                                >
-                                                    BB3 project file path
-                                                </label>
-                                                <FileBrowserInput
-                                                    id="new-project-wizard-bb3-project-file-path-input"
-                                                    value={
-                                                        wizardModel.bb3ProjectFile
-                                                    }
-                                                    onChange={action(
-                                                        (
-                                                            value:
-                                                                | string
-                                                                | undefined
-                                                        ) =>
+                                                <div className="mb-3">
+                                                    <label
+                                                        htmlFor="new-project-wizard-bb3-project-file-path-input"
+                                                        className="form-label"
+                                                    >
+                                                        BB3 project file path
+                                                    </label>
+                                                    <FileBrowserInput
+                                                        id="new-project-wizard-bb3-project-file-path-input"
+                                                        value={
+                                                            wizardModel.bb3ProjectFile
+                                                        }
+                                                        onChange={action(
+                                                            (
+                                                                value:
+                                                                    | string
+                                                                    | undefined
+                                                            ) =>
                                                             (wizardModel.bb3ProjectFile =
                                                                 value)
+                                                        )}
+                                                    />
+                                                    {wizardModel.bb3ProjectFileError && (
+                                                        <div className="form-text text-danger">
+                                                            {
+                                                                wizardModel.bb3ProjectFileError
+                                                            }
+                                                        </div>
                                                     )}
-                                                />
-                                                {wizardModel.bb3ProjectFileError && (
-                                                    <div className="form-text text-danger">
-                                                        {
-                                                            wizardModel.bb3ProjectFileError
-                                                        }
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
+                                                </div>
+                                            )}
                                     </>
                                 )}
 
@@ -2495,10 +2492,10 @@ const ProjectProperties = observer(
                                                 }
                                                 onChange={action(
                                                     event =>
-                                                        (wizardModel.projectVersion =
-                                                            event.target.checked
-                                                                ? "v3"
-                                                                : "v2")
+                                                    (wizardModel.projectVersion =
+                                                        event.target.checked
+                                                            ? "v3"
+                                                            : "v2")
                                                 )}
                                             />
                                             <label
@@ -2522,10 +2519,10 @@ const ProjectProperties = observer(
                                                 }
                                                 onChange={action(
                                                     event =>
-                                                        (wizardModel.projectVersion =
-                                                            event.target.checked
-                                                                ? "v2"
-                                                                : "v3")
+                                                    (wizardModel.projectVersion =
+                                                        event.target.checked
+                                                            ? "v2"
+                                                            : "v3")
                                                 )}
                                             />
                                             <label
@@ -2563,20 +2560,20 @@ const ProjectProperties = observer(
                                         />
                                         {wizardModel.selectedProjectType
                                             ?.projectType != "IEXT" && (
-                                            <ButtonAction
-                                                className="btn-secondary"
-                                                text="Run Project"
-                                                title="Run Project"
-                                                icon="material:play_arrow"
-                                                onClick={this.onRunProject}
-                                                enabled={
-                                                    !wizardModel.createProjectInProgress
-                                                }
-                                                style={{
-                                                    marginLeft: 10
-                                                }}
-                                            />
-                                        )}
+                                                <ButtonAction
+                                                    className="btn-secondary"
+                                                    text="Run Project"
+                                                    title="Run Project"
+                                                    icon="material:play_arrow"
+                                                    onClick={this.onRunProject}
+                                                    enabled={
+                                                        !wizardModel.createProjectInProgress
+                                                    }
+                                                    style={{
+                                                        marginLeft: 10
+                                                    }}
+                                                />
+                                            )}
                                     </>
                                 )}
                             </div>
