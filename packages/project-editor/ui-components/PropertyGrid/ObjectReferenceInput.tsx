@@ -79,9 +79,9 @@ export const ObjectReferenceInput = observer(
                 .filter(asset =>
                     propertyInfo.filterReferencedObjectCollection
                         ? propertyInfo.filterReferencedObjectCollection(
-                              this.props.objects,
-                              asset.object
-                          )
+                            this.props.objects,
+                            asset.object
+                        )
                         : true
                 )
                 .map(asset => asset.name)
@@ -228,17 +228,17 @@ export const ObjectReferenceInput = observer(
             if (
                 !this.props.propertyInfo.disableBitmapPreview &&
                 this.props.propertyInfo.referencedObjectCollectionPath ===
-                    "bitmaps"
+                "bitmaps"
             ) {
                 bitmap = findBitmap(this.context.project, this.props.value);
             }
 
             const placeholder =
                 this.props.propertyInfo.inputPlaceholder &&
-                this.props.objects.length == 1
+                    this.props.objects.length == 1
                     ? this.props.propertyInfo.inputPlaceholder(
-                          this.props.objects[0]
-                      )
+                        this.props.objects[0]
+                    )
                     : "";
 
             return (
@@ -282,8 +282,9 @@ export const ObjectReferenceInput = observer(
                                 />
                             </div>
                         </div>
-                    )}
-                </div>
+                    )
+                    }
+                </div >
             );
         }
     }

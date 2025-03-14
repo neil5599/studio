@@ -115,6 +115,7 @@ export class Bitmap extends EezObject {
     bpp: number;
     alwaysBuild: boolean;
     style?: string;
+    sysPth?: string;     //image path in sys folder
 
     constructor() {
         super();
@@ -137,7 +138,8 @@ export class Bitmap extends EezObject {
             image: observable,
             bpp: observable,
             alwaysBuild: observable,
-            style: observable
+            style: observable,
+            sysPth: observable
         });
     }
 
@@ -190,6 +192,11 @@ export class Bitmap extends EezObject {
                     bitmap.bpp == 32
             },
             {
+                name: "sysPth",
+                displayName: "System path",
+                type: PropertyType.String
+            },
+            {
                 name: "alwaysBuild",
                 displayName: "Always add to the generated code",
                 type: PropertyType.Boolean,
@@ -204,11 +211,11 @@ export class Bitmap extends EezObject {
                 skipSearch: true,
                 hideInPropertyGrid: (bitmap: Bitmap) =>
                     bitmap.image &&
-                    typeof bitmap.image == "string" &&
-                    bitmap.image.startsWith("data:image/")
+                        typeof bitmap.image == "string" &&
+                        bitmap.image.startsWith("data:image/")
                         ? false
                         : true
-            }
+            },
         ],
         propertiesPanelLabel: (bitmap: Bitmap) => {
             return `Bitmap: ${bitmap.name}`;
@@ -266,24 +273,24 @@ export class Bitmap extends EezObject {
                         },
                         ...(projectStore.projectTypeTraits.isLVGL
                             ? [
-                                  {
-                                      name: "bpp",
-                                      displayName: "Color format",
-                                      type: "enum",
-                                      enumItems:
-                                          getLvglBitmapColorFormats(parent)
-                                  } as IFieldProperties
-                              ]
+                                {
+                                    name: "bpp",
+                                    displayName: "Color format",
+                                    type: "enum",
+                                    enumItems:
+                                        getLvglBitmapColorFormats(parent)
+                                } as IFieldProperties
+                            ]
                             : projectStore.projectTypeTraits.isDashboard
-                            ? []
-                            : [
-                                  {
-                                      name: "bpp",
-                                      displayName: "Bits per pixel",
-                                      type: "enum",
-                                      enumItems: [16, 32]
-                                  } as IFieldProperties
-                              ])
+                                ? []
+                                : [
+                                    {
+                                        name: "bpp",
+                                        displayName: "Bits per pixel",
+                                        type: "enum",
+                                        enumItems: [16, 32]
+                                    } as IFieldProperties
+                                ])
                     ]
                 },
                 values: {
@@ -361,12 +368,12 @@ export class Bitmap extends EezObject {
                             canvas.width = Math.floor(
                                 (image.width *
                                     __eezProjectMigration.displayTargetWidth) /
-                                    __eezProjectMigration.displaySourceWidth
+                                __eezProjectMigration.displaySourceWidth
                             );
                             canvas.height = Math.floor(
                                 (image.height *
                                     __eezProjectMigration.displayTargetHeight) /
-                                    __eezProjectMigration.displaySourceHeight
+                                __eezProjectMigration.displaySourceHeight
                             );
 
                             let ctx = canvas.getContext("2d");
@@ -592,7 +599,8 @@ export async function createBitmap(
     filePath: string,
     fileType?: string,
     name?: string,
-    bpp?: number
+    bpp?: number,
+    sysPth?: string
 ) {
     if (fileType == undefined) {
         const ext = path.extname(filePath).toLowerCase();
@@ -622,7 +630,8 @@ export async function createBitmap(
             name,
             image: `data:${fileType};base64,` + result,
             bpp,
-            alwaysBuild: false
+            alwaysBuild: false,
+            sysPth
         };
 
         const bitmap = createObject<Bitmap>(
@@ -671,7 +680,8 @@ export async function createBitmapFromFile(
             name,
             image: `data:${fileType};base64,` + base64,
             bpp,
-            alwaysBuild: false
+            alwaysBuild: false,
+            sysPth: "",
         };
 
         const bitmap = createObject<Bitmap>(

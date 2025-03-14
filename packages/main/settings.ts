@@ -51,7 +51,7 @@ class Settings {
     dateFormat: string = "";
     timeFormat: string = "";
 
-    isDarkTheme: boolean = false;
+    isDarkTheme: boolean = true;
 
     get settingsFilePath() {
         return app.getPath("userData") + "/" + SETTINGS_FILE_NAME;
@@ -137,7 +137,7 @@ class Settings {
                         );
                         const json = JSON.parse(jsonStr);
                         mruItem.projectType = json.settings.general.projectType;
-                    } catch (err) {}
+                    } catch (err) { }
                 }
             }
 
