@@ -380,7 +380,7 @@ export class Build extends EezObject {
             }
 
             if (jsObject.separateFolderForImagesAndFonts == undefined) {
-                jsObject.separateFolderForImagesAndFonts = false;
+                jsObject.separateFolderForImagesAndFonts = true;
             }
 
             if (jsObject.screensLifetimeSupport == undefined) {
@@ -545,7 +545,7 @@ export const ExtensionDirectiveCustomUI = observer((props: PropertyProps) => {
         <Button
             color="primary"
             size="small"
-            onClick={() => {}}
+            onClick={() => { }}
             style={{ marginTop: 10 }}
         >
             Install

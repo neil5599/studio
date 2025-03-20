@@ -100,7 +100,8 @@
         "bitset": "cpp",
         "shared_mutex": "cpp",
         "charconv": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "span": "cpp"
     },
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "workbench.editor.enablePreview": false,

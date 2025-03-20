@@ -88,6 +88,20 @@ export function removeFolder(folderPath: string) {
     });
 }
 
+export function clearFolder(folderPath: string) {
+    return new Promise<void>((resolve, reject) => {
+        fs.readdirSync(folderPath).forEach((file, index, arr) => {
+            if (fs.lstatSync(`${folderPath}/${file}`).isFile()) {
+                fs.unlinkSync(`${folderPath}/${file}`)
+            } else if (fs.lstatSync(`${folderPath}/${file}`).isDirectory()) {
+                clearFolder(`${folderPath}/${file}`)
+                fs.rmdirSync(`${folderPath}/${file}`)
+            }
+        })
+        resolve();
+    });
+}
+
 export function removeFile(filePath: string) {
     const { remove } = require("fs-extra");
     return remove(filePath);

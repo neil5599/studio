@@ -1,3 +1,4 @@
+import { shell } from "electron";
 import path from "path";
 import fs from "fs";
 import { createTransformer } from "mobx-utils";
@@ -5,7 +6,8 @@ import { createTransformer } from "mobx-utils";
 import {
     writeTextFile,
     writeBinaryData,
-    makeFolder
+    makeFolder,
+    clearFolder
 } from "eez-studio-shared/util-electron";
 
 import type { BuildResult } from "project-editor/store/features";
@@ -72,7 +74,7 @@ class BuildException {
     constructor(
         public message: string,
         public object?: IEezObject | undefined
-    ) {}
+    ) { }
 }
 
 async function getBuildResults(
@@ -138,7 +140,7 @@ async function generateFile(
             (_1, part, configurationName) => {
                 const buildResults =
                     configurationBuildResults[
-                        configurationName || defaultConfigurationName
+                    configurationName || defaultConfigurationName
                     ];
 
                 parts = {};
@@ -204,17 +206,17 @@ async function generateFiles(
                 : "default",
             undefined,
             destinationFolderPath +
-                "/" +
-                path.basename(projectStore.filePath || "", ".eez-project") +
-                (project.projectTypeTraits.isApplet ? ".app" : ".res")
+            "/" +
+            path.basename(projectStore.filePath || "", ".eez-project") +
+            (project.projectTypeTraits.isApplet ? ".app" : ".res")
         );
 
         if (project.projectTypeTraits.isResource && project.micropython) {
             await writeTextFile(
                 destinationFolderPath +
-                    "/" +
-                    path.basename(projectStore.filePath || "", ".eez-project") +
-                    ".py",
+                "/" +
+                path.basename(projectStore.filePath || "", ".eez-project") +
+                ".py",
                 project.micropython.code
             );
         }
@@ -231,11 +233,11 @@ async function generateFiles(
                             configuration.name,
                             buildFile.template,
                             destinationFolderPath +
-                                "/" +
-                                buildFile.fileName.replace(
-                                    "<configuration>",
-                                    configuration.name
-                                )
+                            "/" +
+                            buildFile.fileName.replace(
+                                "<configuration>",
+                                configuration.name
+                            )
                         );
                     } catch (err) {
                         await new Promise(resolve => setTimeout(resolve, 10));
@@ -246,15 +248,26 @@ async function generateFiles(
                             configuration.name,
                             buildFile.template,
                             destinationFolderPath +
-                                "/" +
-                                buildFile.fileName.replace(
-                                    "<configuration>",
-                                    configuration.name
-                                )
+                            "/" +
+                            buildFile.fileName.replace(
+                                "<configuration>",
+                                configuration.name
+                            )
                         );
                     }
                 }
             } else {
+                let middir = '/';
+                if (buildFile.fileName.startsWith('styles.')) {
+                    middir = '/styles/';
+                }
+                if (buildFile.fileName.startsWith('images.')) {
+                    middir = '/images/';
+                }
+                if (buildFile.fileName.startsWith('fonts.')) {
+                    middir = '/fonts/';
+                }
+
                 parts = generateFile(
                     projectStore,
                     configurationBuildResults,
@@ -262,7 +275,7 @@ async function generateFiles(
                         ? projectStore.selectedBuildConfiguration.name
                         : "default",
                     buildFile.template,
-                    destinationFolderPath + "/" + buildFile.fileName
+                    destinationFolderPath + middir + buildFile.fileName
                 );
             }
         }
@@ -320,6 +333,9 @@ export async function build(
 
             if (!fs.existsSync(destinationFolderPath)) {
                 await makeFolder(destinationFolderPath);
+            } else {
+                //clear the old files in Folder(destinationFolderPath);
+                await clearFolder(destinationFolderPath);
             }
 
             if (!project.projectTypeTraits.isDashboard) {
@@ -350,6 +366,16 @@ export async function build(
                             configuration,
                             option
                         );
+                    let tmp = configurationBuildResults[configuration.name];
+                    for (let index = 0; index < tmp.length; index++) {
+                        for (let i in tmp[index]) {
+                            OutputSections.write(
+                                Section.OUTPUT,
+                                MessageType.INFO,
+                                `configurationBuildResults: ${i}->${tmp[index][i]}`
+                            );
+                        }
+                    }
                 } finally {
                     OutputSections.closeGroup(Section.OUTPUT, false);
                 }
@@ -404,8 +430,7 @@ export async function build(
             OutputSections.write(
                 Section.OUTPUT,
                 MessageType.INFO,
-                `Build duration: ${
-                    (new Date().getTime() - timeStart) / 1000
+                `Build duration: ${(new Date().getTime() - timeStart) / 1000
                 } seconds`
             );
 
@@ -430,7 +455,7 @@ export async function build(
                     project,
                     destinationFolderPath || "",
                     configurationBuildResults["Default"]?.[0]?.[
-                        "EEZ_FLOW_IS_USING_CRYPTO_SHA256"
+                    "EEZ_FLOW_IS_USING_CRYPTO_SHA256"
                     ] as any as boolean
                 );
             }
@@ -506,8 +531,7 @@ export async function build(
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build duration: ${
-                (new Date().getTime() - timeStart) / 1000
+            `Build duration: ${(new Date().getTime() - timeStart) / 1000
             } seconds`
         );
 
@@ -516,6 +540,7 @@ export async function build(
             MessageType.INFO,
             `Build successfully finished at ${new Date().toLocaleString()}`
         );
+        shell.openPath(destinationFolderPath!);
     } catch (err) {
         console.error(err);
         if (err instanceof BuildException) {
@@ -581,8 +606,7 @@ export async function buildExtensions(projectStore: ProjectStore) {
         OutputSections.write(
             Section.OUTPUT,
             MessageType.INFO,
-            `Build duration: ${
-                (new Date().getTime() - timeStart) / 1000
+            `Build duration: ${(new Date().getTime() - timeStart) / 1000
             } seconds`
         );
 

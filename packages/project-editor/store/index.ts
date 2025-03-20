@@ -146,10 +146,10 @@ type ProjectStoreContext =
     | { type: "project-editor" }
     | { type: "run-tab" }
     | {
-          type: "run-embedded";
-          parentProjectStore: ProjectStore;
-          dashboardPath: string;
-      }
+        type: "run-embedded";
+        parentProjectStore: ProjectStore;
+        dashboardPath: string;
+    }
     | { type: "instrument-dashboard"; instrument: InstrumentObject }
     | { type: "standalone" };
 
@@ -218,7 +218,7 @@ export class ProjectStore {
             this.savedRevision =
                 this.lastRevision =
                 this.lastRevisionStable =
-                    Symbol();
+                Symbol();
             this.undoManager = new UndoManager(this);
             this.navigationStore = new NavigationStore(this);
 
@@ -852,8 +852,7 @@ export class ProjectStore {
 
                 if (extension) {
                     notification.success(
-                        `Extension "${
-                            extension.displayName || extension.name
+                        `Extension "${extension.displayName || extension.name
                         }" installed`
                     );
                 }
